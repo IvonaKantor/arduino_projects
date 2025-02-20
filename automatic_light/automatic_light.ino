@@ -11,4 +11,6 @@ void setup() {
 }
 
 void loop() {
+  int level1 = degitalRead(button1);
+  int level2 = digitalRead(button2);
 }
