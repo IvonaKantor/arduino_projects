@@ -13,20 +13,34 @@ void setup() {
 }
 
 void loop() {
+  static int pressCount1 = 0;
+  static int pressCount2 = 0;
+  static bool state1 = HIGH;
+  static bool state2 = HIGH;
   int level1 = digitalRead(button1);
   int level2 = digitalRead(button2);
 
-  if (level1 == LOW) {
-    digitalWrite(led1, HIGH);
-    Serial.println("Level1 low");
-  } else {
-    digitalWrite(led1, LOW);
+  if (level1 == LOW && state1 == HIGH) {
+    pressCount1++;
+    Serial.println("Pressed button1");
   }
 
-  if (level2 == LOW) {
+  if (level1 == HIGH && state1 == LOW && pressCount1 == 2) {
+    digitalWrite(led1, HIGH);
+    Serial.println("Level1 low");
+    pressCount1 = 0;
+  } 
+  state1 = level1;
+
+  if (level2 == LOW && state2 == HIGH) {
+    pressCount2++;
+    Serial.println("Pressed button2");
+  }
+
+  if (level2 == HIGH && state2 == LOW && pressCount2 == 2) {
     digitalWrite(led2, HIGH);
     Serial.println("Level2 low");
-  } else {
-    digitalWrite(led2, LOW);
+    pressCount2 = 0;
   }
+  state2 = level2;
 }
