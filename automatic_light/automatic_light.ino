@@ -27,12 +27,13 @@ void setup() {
 }
 
 void loop() {
-  static int pressCount1 = 0;
-  static int pressCount2 = 0;
-  static bool state1 = HIGH;
-  static bool state2 = HIGH;
-  int level1 = digitalRead(button1);
-  int level2 = digitalRead(button2);
+ function(button1);
+ function(button2);
+}
+
+void function(Button &button){
+ 
+  int level = digitalRead(button.pin);
 
   if (level1 == LOW && state1 == HIGH) {
     pressCount1++;
