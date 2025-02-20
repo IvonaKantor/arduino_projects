@@ -4,6 +4,11 @@ struct Button{
   bool lastState;
 };
 
+enum State{
+  OFF = LOW,
+  ON = HIGH
+};
+
 #define button1 4
 #define button2 5
 #define led1 2
