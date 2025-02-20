@@ -20,10 +20,10 @@ Button button2 = {BUTTON2_PIN, 0, HIGH};
 void setup() {
   Serial.begin(9600);
   Serial.println("Ready");
-  pinMode(button1, INPUT_PULLUP);
-  pinMode(button2, INPUT_PULLUP);
-  pinMode(led1, OUTPUT);
-  pinMode(led2, OUTPUT);
+  pinMode(button1.pin, INPUT_PULLUP);
+  pinMode(button2.pin, INPUT_PULLUP);
+  pinMode(LED1_PIN, OUTPUT);
+  pinMode(LED2_PIN, OUTPUT);
 }
 
 void loop() {
