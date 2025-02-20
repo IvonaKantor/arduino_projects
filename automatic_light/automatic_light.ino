@@ -14,6 +14,9 @@ enum State{
 #define BUTTON1_PIN 4
 #define BUTTON2_PIN 5
 
+Button button1 = {BUTTON1_PIN, 0, HIGH};
+Button button2 = {BUTTON2_PIN, 0, HIGH};
+
 void setup() {
   Serial.begin(9600);
   Serial.println("Ready");
