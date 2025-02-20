@@ -9,10 +9,10 @@ enum State{
   ON = HIGH
 };
 
-#define button1 4
-#define button2 5
-#define led1 2
-#define led2 3
+#define LED1_PIN 2
+#define LED2_PIN 3
+#define BUTTON1_PIN 4
+#define BUTTON2_PIN 5
 
 void setup() {
   Serial.begin(9600);
