@@ -20,13 +20,14 @@ Button button2 = { BUTTON2_PIN, 0, HIGH };
 void setup() {
   Serial.begin(9600);
   Serial.println("Ready");
+
   pinMode(button1.pin, INPUT_PULLUP);
   pinMode(button2.pin, INPUT_PULLUP);
   pinMode(LED1_PIN, OUTPUT);
   pinMode(LED2_PIN, OUTPUT);
 
-  digitalWrite(LED1_PIN, ON);
-  digitalWrite(LED2_PIN, ON);
+  digitalWrite(LED1_PIN, OFF); 
+  digitalWrite(LED2_PIN, OFF);
 }
 
 void loop() {
@@ -35,22 +36,25 @@ void loop() {
 }
 
 void function(Button &button, int ledPin) {
-
   bool level = digitalRead(button.pin);
 
   if (level == LOW && button.lastState == HIGH) {
-    delay(50);
     button.pressCount++;
-    Serial.println("Pressed a button");
+    Serial.print("Pressed a button ");
+    Serial.print(button.pin);
   }
 
   if (level == HIGH && button.lastState == LOW) {
-    if(button.pressCount == 2){
-    digitalWrite(ledPin, ON);
-    Serial.println("Led was turned ON ");
-    Serial.print(ledPin);
-    button.pressCount = 0;
+    if (button.pressCount >= 2) {
+      int currentState = digitalRead(ledPin);
+      digitalWrite(ledPin, !currentState); 
+      Serial.print("LED on pin ");
+      Serial.print(ledPin);
+      Serial.print(" turned ");
+      
+      button.pressCount = 0; 
     }
   }
+
   button.lastState = level;
 }
