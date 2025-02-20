@@ -1,3 +1,9 @@
+struct Button{
+  int pin;
+  int pressCount;
+  bool lastState;
+};
+
 #define button1 4
 #define button2 5
 #define led1 2
