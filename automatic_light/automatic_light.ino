@@ -35,7 +35,12 @@ void function(Button &button) {
   bool level = digitalRead(button.pin);
 
   if (level == LOW && button.lastState == HIGH) {
-    button.pressCount = (button.pressCount + 1) % 4;
+    button.pressCount ++;
+
+    if(button.pressCount == 4){
+      button.pressCount = 0;
+    }
+
     Serial.print("Button ");
     Serial.print(button.pin);
     Serial.print(" pressed, count: ");
