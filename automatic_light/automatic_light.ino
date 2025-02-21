@@ -5,8 +5,8 @@ struct Button {
 };
 
 enum State {
-  OFF = LOW,
-  ON = HIGH
+  CLOSED = HIGH,
+  OPEN = LOW
 };
 
 #define LED1_PIN 2
@@ -26,8 +26,8 @@ void setup() {
   pinMode(LED1_PIN, OUTPUT);
   pinMode(LED2_PIN, OUTPUT);
 
-  digitalWrite(LED1_PIN, OFF); 
-  digitalWrite(LED2_PIN, OFF);
+  digitalWrite(LED1_PIN, CLOSED);
+  digitalWrite(LED2_PIN, CLOSED);
 }
 
 void loop() {
@@ -44,16 +44,15 @@ void function(Button &button, int ledPin) {
     Serial.print(button.pin);
   }
 
-  if (level == HIGH && button.lastState == LOW) {
-    if (button.pressCount >= 2) {
-      int currentState = digitalRead(ledPin);
-      digitalWrite(ledPin, !currentState); 
-      Serial.print("LED on pin ");
-      Serial.print(ledPin);
-      Serial.print(" turned ");
-      
-      button.pressCount = 0; 
-    }
+  if (level == HIGH && button.lastState == LOW && button.pressCount >= 2) {
+    int currentState = digitalRead(ledPin);
+    digitalWrite(ledPin, !currentState);
+    Serial.println("LED on pin ");
+    Serial.print(ledPin);
+    Serial.print(" turned ");
+
+    button.pressCount = 0;
+    delay(500);
   }
 
   button.lastState = level;
