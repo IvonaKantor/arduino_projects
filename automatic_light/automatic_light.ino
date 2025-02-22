@@ -35,24 +35,20 @@ void function(Button &button) {
   bool level = digitalRead(button.pin);
 
   if (level == LOW && button.lastState == HIGH) {
-    button.pressCount ++;
-
-    if(button.pressCount == 4){
-      button.pressCount = 0;
-    }
+    button.pressCount = (button.pressCount + 1) % 4;
 
     Serial.print("Button ");
     Serial.print(button.pin);
     Serial.print(" pressed, count: ");
     Serial.println(button.pressCount);
-    delay(500);
-  }
 
-  if (button.pressCount == 1) {
-    digitalWrite(button.ledPin, HIGH);
-  }else if(button.pressCount == 3){
-    digitalWrite(button.ledPin, LOW);
-  }
 
+    if (button.pressCount == 0 || button.pressCount == 2) {
+      digitalWrite(button.ledPin, LOW);
+    } else if (button.pressCount == 1) {
+      digitalWrite(button.ledPin, HIGH);
+    }
+
+  }
   button.lastState = level;
 }
