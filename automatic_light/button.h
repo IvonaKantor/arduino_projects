@@ -1,8 +1,10 @@
 #pragma once
 
-struct Button {
-  int pin;
-  int pressCount;
-  bool lastState;
+struct Room {
+  int buttonPin;
   int ledPin;
+  int lastLevel;
+  int light;
 };
+
+
