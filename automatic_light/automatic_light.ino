@@ -5,6 +5,7 @@
 #define BUTTON1_PIN 4
 #define BUTTON2_PIN 5
 #define UNDEFINED -1
+#define OFF_TIME 10000
 
 Room room1 = { BUTTON1_PIN, LED1_PIN, LOW, HIGH };
 Room room2 = { BUTTON2_PIN, LED2_PIN, LOW, HIGH };
@@ -26,7 +27,7 @@ void setup() {
 }
 
 inline void doorState(Room &room) {
-  int level = digitalRead(room1.buttonPin);
+  int level = digitalRead(room.buttonPin);
 
   if (level == HIGH) {
     room.lastLevel = UNDEFINED;
@@ -45,8 +46,16 @@ void function(Room &room) {
     room.light = room.light == HIGH ? LOW : HIGH;
     digitalWrite(room.ledPin, room.light);
 
-    delay(100);
+    if(room.light == HIGH){
+      room.timeOff = millis();
+    }
   }
+
+  if (room.light == LOW && room.timeOff > 0 && (millis() - room.timeOff >= OFF_TIME)) {
+    room.light = HIGH;
+    digitalWrite(room.ledPin, HIGH);
+    room.timeOff = 0; 
+}
 
   room.lastLevel = level;
 }

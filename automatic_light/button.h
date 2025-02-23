@@ -5,6 +5,5 @@ struct Room {
   int ledPin;
   int lastLevel;
   int light;
+  unsigned long timeOff;
 };
-
-
