@@ -46,14 +46,15 @@ void function(Room &room) {
     room.light = room.light == HIGH ? LOW : HIGH;
     digitalWrite(room.ledPin, room.light);
 
-    if(room.light == HIGH){
+    if(room.light == LOW){
       room.timeOff = millis();
     }
+    delay(100);
   }
 
   if (room.light == LOW && room.timeOff > 0 && (millis() - room.timeOff >= OFF_TIME)) {
     room.light = HIGH;
-    digitalWrite(room.ledPin, HIGH);
+    digitalWrite(room.ledPin, room.light);
     room.timeOff = 0; 
 }
 
